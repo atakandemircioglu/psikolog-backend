@@ -8,8 +8,6 @@ class TherapistController
         unset($modelFilter['offset'], $modelFilter['limit'], $modelFilter['slug']);
         $therapistModel = new TherapistModel();
         $allTherapists = $therapistModel->getByFilter($modelFilter);
-        var_dump($allTherapists);
-        die;
         return array_slice($allTherapists, $filter['offset'], $filter['limit']);
     }
 
