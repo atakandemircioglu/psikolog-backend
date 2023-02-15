@@ -13,9 +13,11 @@ class TherapistController
 
     public function onTherapistRegister($request)
     {
-        $therapistID = $request['submission_id'];
+        $therapistID = $request['submissionID'];
+        $rawData = json_decode($request['rawRequest']);
+        $therapistName = $rawData['isim']['first'] . ' ' . $rawData['isim']['last'];
         $appointmentForm = $this->createAppointmentForm(['properties' => [
-            'title' => 'Appointment_Therapist_' . $therapistID
+            'title' => $therapistName . '_' . $therapistID
         ]]);
         $therapist = (new TherapistModel())->findByPrimaryKey($therapistID);
         $therapist->appointmentForm = $appointmentForm[0]['id'];
