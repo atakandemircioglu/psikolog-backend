@@ -19,3 +19,14 @@ $router->get('/therapists', function () use ($router) {
     $obj = new TherapistController();
     $router->sendResponse([$obj->getAllTherapists()], 200);
 });
+
+$router->get('/set-calendar', function () use ($router) {
+    $obj = new TherapistController();
+    $router->sendResponse([$obj->createAppointmentForm()], 200);
+});
+
+$router->get('/therapist-register', function () use ($router) {
+    $body = json_decode(file_get_contents('php://input'), true);
+    $obj = new TherapistController();
+    $router->sendResponse([$obj->onTherapistRegister($body)], 200);
+});
