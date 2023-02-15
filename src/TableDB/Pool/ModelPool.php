@@ -23,7 +23,7 @@ class ModelPool extends ObjectPool
      * Inserts all of the FILLED models in the pool into the database. Uses $model->fillables attribute
      * @return array
      */
-    public function bulkInsertFromPool(): array
+    public function bulkInsertFromPool()
     {
         $objectFillables = [];
         foreach ($this->all() as $object) {

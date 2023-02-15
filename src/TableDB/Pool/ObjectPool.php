@@ -2,12 +2,12 @@
 
 /**
  * Applies simple object pooling to a class.
-* @author      Onur Yüksel <ce.onuryuksel@gmail.com>
-* @copyright   2022 JotForm, Inc.
-* @link        http://www.jotform.com
-* @version     1.0.0
-* @package     SheetDB
-*/
+ * @author      Onur Yüksel <ce.onuryuksel@gmail.com>
+ * @copyright   2022 JotForm, Inc.
+ * @link        http://www.jotform.com
+ * @version     1.0.0
+ * @package     SheetDB
+ */
 abstract class ObjectPool
 {
     protected $pool = [];
@@ -52,7 +52,7 @@ abstract class ObjectPool
             return null;
         }
     }
-    
+
     /**
      * Returns all of the items from the pool.
      * @return array
