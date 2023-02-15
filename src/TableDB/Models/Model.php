@@ -271,18 +271,48 @@ abstract class Model
         return SheetDB::from($tableName)->where($col, $value);
     }
 
-    public function getByFilter($filter = []) {
-        $query = $this->all();
-        foreach ($filter as $key => $value) {
-            $query = array_filter($query, function ($modelValue) use ($key, $value) {
-                if (is_array($modelValue[$key])) {
-                    return in_array($value, $modelValue[$key]);
-                } else {
-                    return $modelValue[$key] == $value;
-                }
-            });
+    private function parseFilter($data, $delimiter = ',')
+    {
+        $return = [];
+        foreach ($data as $k => $each) {
+            $tmp = explode($delimiter, $each);
+            $tmp = array_unique($tmp);
+            $return[$k] = $tmp;
         }
-        return $query;
+        return $return;
+    }
+
+    public function getByFilter($filter = []) {
+        $filters = $this->parseFilter($filter);
+        $query = $this->all();
+        $filterKeys = array_keys($filters);
+
+        $mapIds = [];
+        foreach ($filterKeys as $filterKey) {
+            foreach ($query as $qKey => $qValue) {
+                foreach ($qValue as $k => $v) {
+                    if ($k === $filterKey) {
+                        if (!is_array($qValue[$k])) {
+                            $aValues = [$qValue[$k]];
+                        } else {
+                            $aValues = array_values($qValue[$k]);
+                        }
+                        if (!empty(array_intersect($aValues, $filters[$k]))) {
+                            $mapIds[$qKey][$filterKey] = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        $response = [];
+        foreach ($mapIds as $id => $value) {
+            $keys = array_keys($value);
+            if ($keys == $filterKeys) {
+                $response[] = $query[$id];
+            }
+        }
+        return $response;
     }
 
     /**
