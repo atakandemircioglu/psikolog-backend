@@ -22,6 +22,7 @@ use Exceptions\ImproperPoolException;
 abstract class Model
 {
     protected static $tableName; // The table name of the model.
+    protected static $tableID; // The table id of the model.
     protected $primaryKey; // The primary key of the model.
     protected $mutators = []; // The mutators of the model. (Mutators used to convert the data to the correct format.)
     protected $customSetters = []; // The custom setters of the model. (Custom setters used to convert the data to the correct format with params.)
@@ -48,6 +49,9 @@ abstract class Model
         $this->initialize(); // Initializes the model.
         $this->fill($values); // Fills the model with the values.
         $usePool === true ? $this->usePool() : $this->dontUsePool(); // Sets the usePool property.
+        if (!empty(static::$tableID)) {
+            static::$tableName = static::$tableID;
+        }
     }
 
     /**

@@ -374,7 +374,8 @@ class Query
         $tables = $this->getTables()->get();
 
         $tableArray = array_values(array_filter($tables, function ($tableArray) use ($tableName) {
-            return $tableArray['name'] == $tableName;
+            $accessor = is_numeric($tableName) ? 'id' : 'name';
+            return $tableArray[$accessor] === $tableName;
         }));
 
         $tableFactory = new TableFactory();
