@@ -14,7 +14,7 @@ class TherapistController
     public function onTherapistRegister($request)
     {
         $therapistID = $request['submissionID'];
-        $rawData = json_decode($request['rawRequest']);
+        $rawData = json_decode($request['rawRequest'], true);
         $therapistName = $rawData['isim']['first'] . ' ' . $rawData['isim']['last'];
         $appointmentForm = $this->createAppointmentForm(['properties' => [
             'title' => $therapistName . '_' . $therapistID
