@@ -21,9 +21,7 @@ $router->get('/therapists', function () use ($router) {
 });
 
 $router->post('/therapist-register', function () use ($router) {
-    $body = $_REQUEST;
-    file_put_contents(__DIR__ . '/log/test.json', $body);
-    die('test');
+    file_put_contents(__DIR__ . '/log/test.json', json_encode($_REQUEST));
     $obj = new TherapistController();
-    $router->sendResponse([$obj->onTherapistRegister($body)], 200);
+    $router->sendResponse([$obj->onTherapistRegister($_REQUEST)], 200);
 });
