@@ -78,7 +78,7 @@ class Router
             list($method, $path, $callback) = $route;
             $checkMethod = ($this->actualMethod === $method) ? 1 : 0;
             $actualPath = strtok($this->actualPath, '?');
-            $checkPath = preg_match("~^{$path}$~ixs", $this->actualPath, $params);
+            $checkPath = preg_match("~^{$path}$~ixs", $actualPath, $params);
             if ($checkMethod && $checkPath) {
                 array_shift($params);
                 return call_user_func_array($callback, $params);
