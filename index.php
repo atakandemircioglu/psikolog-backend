@@ -1,8 +1,10 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+if (isset($_GET['dbg'])) {
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+}
 
 include_once('src/Router.php');
 include_once('src/Controllers/TherapistController.php');
@@ -21,7 +23,7 @@ $router->get('/therapists', function () use ($router) {
 });
 
 $router->post('/therapist-register', function () use ($router) {
-    file_put_contents(__DIR__ . '/log/test.json', json_encode($_REQUEST));
+    // file_put_contents(__DIR__ . '/log/test.json', json_encode($_REQUEST));
     $obj = new TherapistController();
     $router->sendResponse([$obj->onTherapistRegister($_REQUEST)], 200);
 });
