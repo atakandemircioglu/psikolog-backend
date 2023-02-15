@@ -22,7 +22,7 @@ $router->get('/therapists', function () use ($router) {
 
 $router->post('/therapist-register', function () use ($router) {
     $body = json_decode(file_get_contents('php://input'), true);
-    file_put_contents($body);
+    file_put_contents('test.json', $body);
     die('test');
     $obj = new TherapistController();
     $router->sendResponse([$obj->onTherapistRegister($body)], 200);
