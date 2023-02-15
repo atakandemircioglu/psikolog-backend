@@ -19,7 +19,7 @@ $router->get('/', function () use ($router) {
 
 $router->get('/therapists', function () use ($router) {
     $obj = new TherapistController();
-    $router->sendResponse([$obj->getAllTherapists()], 200);
+    $router->sendResponse([$obj->getAllTherapists($_GET)], 200);
 });
 
 $router->post('/therapist-register', function () use ($router) {
