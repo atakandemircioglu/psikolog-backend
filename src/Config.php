@@ -7,7 +7,8 @@ class Config
     public static function init()
     {
         if (empty(self::$items)) {
-            self::$items = include('../../config/credentials.php');
+            echo __DIR__ . '/../../config/credentials.php';
+            self::$items = include(__DIR__ . '/../../config/credentials.php');
         }
 
         return self::$items;
