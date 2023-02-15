@@ -287,6 +287,10 @@ abstract class Model
         $query = $this->all();
         $filterKeys = array_keys($filters);
 
+        if (empty($filters)) {
+            return $query;
+        }
+
         $mapIds = [];
         foreach ($filterKeys as $filterKey) {
             foreach ($query as $qKey => $qValue) {
