@@ -65,20 +65,22 @@ class TherapistController
                         "type" => "autorespond",
                         "uniqueID" => "230444654805052"
                     ]
-                ]
-            ],
-            "conditions" => [
-                [
-                    "action" => "[{\"replaceText\":\"\",\"readOnly\":false,\"newCalculationType\":true,\"useCommasForDecimals\":false,\"operands\":\"24\",\"equation\":\"{24}\",\"showBeforeInput\":false,\"showEmptyDecimals\":false,\"ignoreHiddenFields\":false,\"insertAsText\":false,\"id\":\"action_0_1676568222687\",\"resultField\":\"8\",\"decimalPlaces\":\"2\",\"isError\":false}]",
-                    "id" => "1676568219701",
-                    "index" => "0",
-                    "link" => "Any",
-                    "priority" => "0",
-                    "terms" => "[{\"id\":\"term_0_1676568222687\",\"field\":\"24\",\"operator\":\"isFilled\",\"value\":\"\",\"isError\":false}]",
-                    "type" => "calculation"
+                ],
+                "conditions" => [
+                    [
+                        "action" => "[{\"replaceText\":\"\",\"readOnly\":false,\"newCalculationType\":true,\"useCommasForDecimals\":false,\"operands\":\"24\",\"equation\":\"{24}\",\"showBeforeInput\":false,\"showEmptyDecimals\":false,\"ignoreHiddenFields\":false,\"insertAsText\":false,\"id\":\"action_0_1676568222687\",\"resultField\":\"8\",\"decimalPlaces\":\"2\",\"isError\":false}]",
+                        "id" => "1676568219701",
+                        "index" => "0",
+                        "link" => "Any",
+                        "priority" => "0",
+                        "terms" => "[{\"id\":\"term_0_1676568222687\",\"field\":\"24\",\"operator\":\"isFilled\",\"value\":\"\",\"isError\":false}]",
+                        "type" => "calculation"
+                    ]
                 ]
             ]
         ];
+        var_dump($additionalProperties);
+        die;
         $addedPropForm = SheetDB::api()->setMultipleFormProperties($appointmentForm[0]['id'], $additionalProperties);
         $therapist->appointmentForm = 'https://www.jotform.com/' . $appointmentForm[0]['id'];
         $therapist->save();
