@@ -8,6 +8,7 @@ if (isset($_GET['dbg'])) {
 
 include_once('src/Router.php');
 include_once('src/Controllers/TherapistController.php');
+include_once('src/Controllers/ClientController.php');
 include_once('src/TableDB/init.php');
 include_once('src/TableDB/JotForm.php');
 
@@ -20,6 +21,11 @@ $router->get('/', function () use ($router) {
 $router->get('/therapists', function () use ($router) {
     $obj = new TherapistController();
     $router->sendResponse([$obj->getAllTherapists($_GET)], 200);
+});
+
+$router->get('/clients', function () use ($router) {
+    $obj = new ClientController();
+    $router->sendResponse([$obj->getAllClients($_GET)], 200);
 });
 
 $router->post('/therapist-register', function () use ($router) {
