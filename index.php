@@ -42,7 +42,7 @@ $router->get('/client-options', function () use ($router) {
 });
 
 $router->post('/therapist-register', function () use ($router) {
-    // file_put_contents(__DIR__ . '/log/test.json', json_encode($_REQUEST));
+    file_put_contents(__DIR__ . '/log/test.json', json_encode($_REQUEST));
     $obj = new TherapistController();
     $router->sendResponse([$obj->onTherapistRegister($_REQUEST)], 200);
 });
