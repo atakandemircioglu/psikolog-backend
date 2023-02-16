@@ -79,8 +79,6 @@ class TherapistController
                 ]
             ]
         ];
-        var_dump($additionalProperties);
-        die;
         $addedPropForm = SheetDB::api()->setMultipleFormProperties($appointmentForm[0]['id'], $additionalProperties);
         $therapist->appointmentForm = 'https://www.jotform.com/' . $appointmentForm[0]['id'];
         $therapist->save();
