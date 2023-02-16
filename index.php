@@ -28,6 +28,19 @@ $router->get('/clients', function () use ($router) {
     $router->sendResponse([$obj->getAllClients($_GET)], 200);
 });
 
+$router->get('/client-options', function () use ($router) {
+    $obj = new ClientController();
+    $result = $obj->getAllClients($_GET);
+    $response = [];
+    foreach ($result as $eachResponse) {
+        $response[] = [
+            'label' => sprintf('%s %s', $eachResponse['isim']['first'], $eachResponse['isim']['last']),
+            'value' => $eachResponse['eposta']
+        ];
+    }
+    $router->sendResponse($response, 200);
+});
+
 $router->post('/therapist-register', function () use ($router) {
     // file_put_contents(__DIR__ . '/log/test.json', json_encode($_REQUEST));
     $obj = new TherapistController();
