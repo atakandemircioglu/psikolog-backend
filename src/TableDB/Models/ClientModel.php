@@ -17,6 +17,9 @@ class ClientModel extends Model
         'musaitZamanlar',
         'kullandigiIlaclar',
         'eklemekIstediginiz',
-        'eklemekIstedikleriniz'
+        'eklemekIstedikleriniz',
+        'atananPsikolog',
+        'emailPsik',
+        'durum'
     ];
 }
