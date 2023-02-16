@@ -16,31 +16,21 @@ class TherapistController
         $therapistID = $request['submissionID'];
         $rawData = json_decode($request['rawRequest'], true);
         $therapistName = $rawData['q3_isim']['first'] . ' ' . $rawData['q3_isim']['last'];
-        $appointmentForm = $this->createAppointmentForm(['properties' => [
-            'title' => $therapistName . '_' . $therapistID
-        ], 'questions' => [
-            "1" => ['text' => $therapistName . ' Randevu Formu']
-        ]]);
+        $questions = $this->getAppointmentFormQuestionsDefault();
+
+        $properties = $this->getAppointmentFormPropertiesDefault();
+        $properties['title'] = $therapistName . '_' . $therapistID;
+        $questions["questions"][1]['text'] = $therapistName . ' Randevu Formu';
+
+        $appointmentForm = $this->createAppointmentForm($properties, $questions);
         $therapist = (new TherapistModel())->findByPrimaryKey($therapistID);
         $therapist->appointmentForm = 'https://www.jotform.com/' . $appointmentForm[0]['id'];
         $therapist->save();
         return $appointmentForm;
     }
 
-    public function createAppointmentForm($opt = [])
+    public function createAppointmentForm($properties = [], $questions = [])
     {
-        $questions = $this->getAppointmentFormQuestionsDefault();
-        $properties = $this->getAppointmentFormPropertiesDefault();
-        $properties['title'] = 'Psikolog Randevu Formu';
-
-        foreach ($opt as $var => $value) {
-            if (in_array($var, ['properties', 'questions'])) {
-                foreach ($value as $key => $value) {
-                    ${$var}[$key] = $value;
-                }
-            }
-        }
-
         $form = [
             'properties' => $properties
         ];
