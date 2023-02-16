@@ -18,6 +18,8 @@ class TherapistController
         $therapistName = $rawData['q3_isim']['first'] . ' ' . $rawData['q3_isim']['last'];
         $appointmentForm = $this->createAppointmentForm(['properties' => [
             'title' => $therapistName . '_' . $therapistID
+        ], 'questions' => [
+            "1" => ['text' => $therapistName . ' Randevu Formu']
         ]]);
         $therapist = (new TherapistModel())->findByPrimaryKey($therapistID);
         $therapist->appointmentForm = 'https://www.jotform.com/' . $appointmentForm[0]['id'];
