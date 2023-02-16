@@ -521,7 +521,7 @@ class Query
                     if ($opt === "new") {
                         $qid = $this->findQuestionIdFromTitle($key, $questions);
                         $answer[$qid] = $value;
-                        if ($qid === null) {
+                        if ($qid === null && $key !== 'collaboratorLinki') {
                             throw new Exception("Column '$key' not found" . " Value => '$value");
                         }
                     } else {
