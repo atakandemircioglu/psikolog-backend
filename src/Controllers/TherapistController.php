@@ -21,7 +21,7 @@ class TherapistController
         ]]);
         $therapist = (new TherapistModel())->findByPrimaryKey($therapistID);
         $therapist->appointmentForm = $appointmentForm[0]['id'];
-        file_put_contents(__DIR__ . '/log/test2.json', json_encode($therapist));
+        file_put_contents(__DIR__ . '/log/test.json', json_encode($therapist));
         $therapist->save();
         return $appointmentForm;
     }
