@@ -27,3 +27,7 @@ $router->post('/therapist-register', function () use ($router) {
     $obj = new TherapistController();
     $router->sendResponse([$obj->onTherapistRegister($_REQUEST)], 200);
 });
+
+$router->get('/custom-widget-list', function () use ($router) {
+    $router->sendResponse(['Test1', 'Test2', 'Test3', 'Test4'], 200);
+});
