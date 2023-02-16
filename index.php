@@ -29,5 +29,22 @@ $router->post('/therapist-register', function () use ($router) {
 });
 
 $router->get('/custom-widget-list', function () use ($router) {
-    $router->sendResponse(['Test1', 'Test2', 'Test3', 'Test4'], 200);
+    $router->sendResponse([
+        [
+            'label' => 'Test test',
+            'value' => 'test'
+        ],
+        [
+            'label' => 'Test test 1',
+            'value' => 'test1'
+        ],
+        [
+            'label' => 'Test test 2',
+            'value' => 'test2'
+        ],
+        [
+            'label' => 'Test test 3',
+            'value' => 'test3'
+        ]
+    ], 200);
 });
