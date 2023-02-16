@@ -20,8 +20,7 @@ class TherapistController
             'title' => $therapistName . '_' . $therapistID
         ]]);
         $therapist = (new TherapistModel())->findByPrimaryKey($therapistID);
-        $therapist->appointmentForm = $appointmentForm[0]['id'];
-        file_put_contents(__DIR__ . '/../../log/test.json', json_encode($therapist));
+        $therapist->appointmentForm = 'https://www.jotform.com/' . $appointmentForm[0]['id'];
         $therapist->save();
         return $appointmentForm;
     }

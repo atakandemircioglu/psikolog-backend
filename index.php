@@ -42,9 +42,13 @@ $router->get('/client-options', function () use ($router) {
 });
 
 $router->post('/therapist-register', function () use ($router) {
-    file_put_contents(__DIR__ . '/log/test.json', json_encode($_REQUEST));
-    $obj = new TherapistController();
-    $router->sendResponse([$obj->onTherapistRegister($_REQUEST)], 200);
+    //file_put_contents(__DIR__ . '/log/test.json', json_encode($_REQUEST));
+    try {
+        $obj = new TherapistController();
+        $router->sendResponse([$obj->onTherapistRegister($_REQUEST)], 200);
+    } catch (Exception $e) {
+        $router->sendResponse([$e->getMessage()], 200);
+    }
 });
 
 $router->get('/custom-widget-list', function () use ($router) {
