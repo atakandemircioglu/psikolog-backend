@@ -106,6 +106,40 @@ class TherapistController
         return [$form, $questionedForm];
     }
 
+    public function getAllAppointments() {
+        $therapists = (new TherapistModel())->all();
+        return array_map(function ($model) {
+            return $this->getTherapistCalendar($model['id']);
+        }, $therapists);
+    }
+
+    public function getTherapistCalendar($therapistID) {
+        $therapist = (new TherapistModel())->findByPrimaryKey($therapistID);
+        $therapistAppointmentFormID = end(explode('/', $therapist->appointmentForm));
+        //$formProps = SheetDB::table($therapistAppointmentFormID)->withColumns()->get();
+        $customTherapistAppointmentModel = CustomModel::class;
+        $customTherapistAppointmentModel::set('tableName', $therapistAppointmentFormID);
+
+        if (empty($therapistAppointmentFormID)) {
+            return;
+        }
+        $appointmentModel = (new $customTherapistAppointmentModel());
+        $return = $appointmentModel->all();
+        $clientModel = (new ClientModel());
+        $appointments = array_map(function ($model) use ($clientModel) {
+            return [
+                'patient' => $clientModel->findByEposta($model['hastaEposta']),
+                'appointment' => [
+                    $model['randevu']
+                ]
+            ];
+        }, $return);
+        return [
+            'therapist' => $therapist->toArray(),
+            'appointments' => $appointments
+        ];
+    }
+
     public function getAppointmentFormPropertiesDefault()
     {
         return json_decode(file_get_contents('appointment-form-properties.json', true), true);

@@ -22,4 +22,8 @@ class ClientModel extends Model
         'emailPsik',
         'durum'
     ];
+
+    public function findByEposta($eposta) {
+        return $this->where('eposta', $eposta)->get();
+    }
 }

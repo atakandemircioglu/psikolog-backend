@@ -51,6 +51,11 @@ $router->post('/therapist-register', function () use ($router) {
     }
 });
 
+$router->get('/therapist-appointments', function () use ($router) {
+    $obj = new TherapistController();
+    $router->sendResponse([$obj->getAllAppointments()], 200);
+});
+
 $router->get('/custom-widget-list', function () use ($router) {
     $router->sendResponse([
         [
