@@ -20,7 +20,7 @@ class TherapistController
         $questions = $this->getAppointmentFormQuestionsDefault();
 
         $properties = $this->getAppointmentFormPropertiesDefault();
-        $properties['title'] = $therapistName . '_' . $therapistID;
+        $properties['title'] = $therapistName . " Randevu Formu";
         $questions["questions"][1]['text'] = $therapistName . ' Randevu Formu';
         $appointmentForm = $this->createAppointmentForm($properties, $questions);
         $therapist = (new TherapistModel())->findByPrimaryKey($therapistID);
