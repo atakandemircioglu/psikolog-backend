@@ -34,15 +34,6 @@ SheetDB is a lightweight mini framework that is easy to use and easy to extend.
 
 ## Installation
 Copy SheetDB folder to your local env.
-Delete files in Models folder below:
-```
-BookModel.php
-CommentModel.php
-ErrorLogModel.php
-LikeModel.php
-PageModel.php
-UserModel.php
-```
 
 Check the permissions of the Cache.json file in the SheetDB directory.
 
