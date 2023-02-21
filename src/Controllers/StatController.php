@@ -4,22 +4,24 @@ class StatController
 {
     public function getStats()
     {
-        $content = [
-            'toplam_danisan' => 1,
-            'tedavisi_baslayan' => 2,
-            'tedavi_bekleyen' => 1,
-            'teavisi_tamamlanan' => 54,
-            'onay_bekleyen' => 12,
-            'onaylanan' => 123,
-            'toplam_psikolog' => 1,
-            'gunluk_tamamlanan_randevu' => 12
-        ];
-
-        $therapistController = new TherapistController();
-        $all = $therapistController->getAllTherapists();
+        //$therapistController = new TherapistController();
+        $clientController = new ClientController();
 
         echo "<pre>";
-        var_dump($all);
+        var_dump($clientController->getAllClients());
         die;
+
+        // $content = [
+        //     'toplam_danisan' => 0,
+        //     'tedavisi_baslayan' => 0,
+        //     'tedavi_bekleyen' => 0,
+        //     'teavisi_tamamlanan' => 0,
+        //     'onay_bekleyen' => 0,
+        //     'onaylanan' => 0,
+        //     'toplam_psikolog' => count($therapistController->getAllTherapists()),
+        //     'gunluk_tamamlanan_randevu' => 0
+        // ];
+
+
     }
 }
