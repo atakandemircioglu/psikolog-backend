@@ -15,7 +15,6 @@ class StatController
             'tedavi_bekleyen' => 0,
             'tedavi_tamamlanan' => 0,
             'tedavi_iptal' => 0,
-            'onay_bekleyen' => 0,
             'toplam_psikolog' => count($therapistController->getAllTherapists())
         ];
 
