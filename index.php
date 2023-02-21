@@ -13,6 +13,10 @@ include_once('src/Controllers/ClientController.php');
 include_once('src/TableDB/init.php');
 include_once('src/TableDB/JotForm.php');
 
+echo "<pre>";
+$obj = new TherapistController();
+print_r($obj->getAllAppointments($_REQUEST));
+exit;
 $router = new Router(substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME']))), $_SERVER['REQUEST_METHOD']);
 
 $router->get('/', function () use ($router) {

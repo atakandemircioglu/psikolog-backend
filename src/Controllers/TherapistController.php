@@ -80,6 +80,7 @@ class TherapistController
                 ]
             ]
         ];
+
         $addedPropForm = SheetDB::api()->setMultipleFormProperties($appointmentForm[0]['id'], json_encode($additionalProperties));
         $therapist->appointmentForm = 'https://www.jotform.com/' . $appointmentForm[0]['id'];
         $therapist->save();
@@ -131,15 +132,16 @@ class TherapistController
         $clientModel = (new ClientModel());
         $appointments = array_map(function ($model) use ($clientModel) {
             $formattedDate = date('F m, Y H:i', strtotime($model['randevu']['date']));
+            $client = $clientModel->findByEposta($model['hastaEposta'])[0];
             return [
-                'patient' => $clientModel->findByEposta($model['hastaEposta']),
+                'client_name' => $client['isim']['first'] . ' ' . $client['isim']['last'],
                 'appointment' => [
                     $formattedDate
                 ]
             ];
         }, $return);
         return [
-            'therapist' => $therapist->toArray(),
+            'therapist_name' => $therapist->isim['first'] . ' ' . $therapist->isim['last'],
             'appointments' => $appointments
         ];
     }
