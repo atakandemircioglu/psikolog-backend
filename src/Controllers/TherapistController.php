@@ -1,5 +1,6 @@
 <?php
 
+include_once('../Classes/Helpers.php');
 class TherapistController
 {
     public function getAllTherapists($filter = ['offset' => 0, 'limit' => 1000])
@@ -106,11 +107,13 @@ class TherapistController
         return [$form, $questionedForm];
     }
 
-    public function getAllAppointments() {
+    public function getAllAppointments($filter = ['offset' => 0, 'limit' => 1000]) {
         $therapists = (new TherapistModel())->all();
-        return array_map(function ($model) {
+        $mapped = array_map(function ($model) {
             return $this->getTherapistCalendar($model['id']);
         }, $therapists);
+        $modelFilter = $filter;
+        return $mapped;
     }
 
     public function getTherapistCalendar($therapistID) {
@@ -127,10 +130,11 @@ class TherapistController
         $return = $appointmentModel->all();
         $clientModel = (new ClientModel());
         $appointments = array_map(function ($model) use ($clientModel) {
+            $formattedDate = date('F m, Y H:i', strtotime($model['randevu']['date']));
             return [
                 'patient' => $clientModel->findByEposta($model['hastaEposta']),
                 'appointment' => [
-                    $model['randevu']
+                    $formattedDate
                 ]
             ];
         }, $return);
