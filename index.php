@@ -7,6 +7,7 @@ if (isset($_GET['dbg'])) {
 }
 
 include_once('src/Router.php');
+include_once('src/Controllers/StatController.php');
 include_once('src/Controllers/TherapistController.php');
 include_once('src/Controllers/ClientController.php');
 include_once('src/TableDB/init.php');
@@ -75,4 +76,9 @@ $router->get('/custom-widget-list', function () use ($router) {
             'value' => 'test3'
         ]
     ], 200);
+});
+
+$router->post('/stats', function () use ($router) {
+    $obj = new StatController();
+    $router->sendResponse([$obj->getStats()], 200);
 });
