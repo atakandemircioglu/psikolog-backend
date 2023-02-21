@@ -32,16 +32,16 @@ class Bootstrap
         });
     }
 
-    public function initRouter()
-    {
-        $this->router = new Router(substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME']))), $_SERVER['REQUEST_METHOD']);
-    }
-
     public function initCORS()
     {
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
         header('Access-Control-Allow-Headers: X-Requested-With');
         header('Content-type: application/json; charset=utf-8');
+    }
+
+    public function initRouter()
+    {
+        $this->router = new Router(substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME']))), $_SERVER['REQUEST_METHOD']);
     }
 }
