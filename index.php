@@ -78,7 +78,7 @@ $router->get('/custom-widget-list', function () use ($router) {
     ], 200);
 });
 
-$router->post('/stats', function () use ($router) {
+$router->get('/stats', function () use ($router) {
     $obj = new StatController();
     $router->sendResponse([$obj->getStats()], 200);
 });
