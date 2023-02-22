@@ -84,6 +84,12 @@ class Router
 
             $checkPath = preg_match("~^{$path}$~ixs", $actualPath, $params);
             if ($checkMethod && $checkPath) {
+                if ($method === "OPTIONS") {
+                    header('Access-Control-Allow-Origin: http://localhost:3000');
+                    header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+                    header("HTTP/1.1 200 OK");
+                    return true;
+                }
                 array_shift($params);
                 return call_user_func_array($callback, $params);
             }
