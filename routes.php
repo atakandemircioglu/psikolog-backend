@@ -39,6 +39,5 @@ $router->get('/stats', function () use ($router) {
 
 $router->post('/login', function () use ($router) {
     $body = json_decode(file_get_contents('php://input'), true);
-    $router->sendResponse([$body], 200);
     $router->sendResponse([(new UserController())->login($body['username'], $body['password'])], 200);
 });
