@@ -27,9 +27,9 @@ class Bootstrap
     public function initCORS()
     {
         header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Origin: localhost');
         header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: X-Requested-With,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token');
+        header('Access-Control-Allow-Headers: X-Requested-With,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,origin');
         header('Content-type: application/json; charset=utf-8');
     }
 
