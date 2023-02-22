@@ -19,7 +19,6 @@ class Bootstrap
         require_once('Controllers/ClientController.php');
         require_once('Controllers/UserController.php');
         require_once('Classes/Auth.php');
-        require_once('Classes/AuthGuard.php');
         require_once('TableDB/init.php');
         require_once('TableDB/JotForm.php');
         require_once('Router.php');
