@@ -2,7 +2,11 @@
 
 $router->get('/therapists', function () use ($router) {
     $router->sendResponse([(new TherapistController())->getAllTherapists($_GET)], 200);
-}, [new AuthGuard()]);
+}, [
+    function () {
+        return new AuthGuard();
+    }
+]);
 
 $router->get('/clients', function () use ($router) {
     $router->sendResponse([(new ClientController())->getAllClients($_GET)], 200);
