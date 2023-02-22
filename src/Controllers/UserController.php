@@ -3,14 +3,17 @@
 class UserController {
     public function login($username, $password) {
         $user = (new UserModel())->getByUsername($username);
-
-        if ($user["password"] !== $password) {
+        if (!$user || $user["password"] !== $password) {
             return false;
         }
 
-        session_start();
-        $_SESSION["loggedIn"] = true;
-        $_SESSION["username"] = $username;
+        return (new Auth())->authenticate($user);
+    }
+
+    public function auth() {
+        if (!isset($_SESSION['loggedIn'])) {
+            return false;
+        }
 
         return $_SESSION;
     }
