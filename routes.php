@@ -69,7 +69,7 @@ $router->get('/auth', function () use ($router) {
 });
 
 $router->options('/login', function () use ($router) {
-    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Origin: http://localhost:3000');
     header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
     header("HTTP/1.1 200 OK");
     $router->sendResponse([], 200);

@@ -26,7 +26,6 @@ class Bootstrap
 
     public function initCORS()
     {
-
         header('Access-Control-Allow-Headers: X-Requested-With, Origin, Content-Type, X-CSRF-Token, Accept');
         header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
         header('Access-Control-Allow-Origin: http://localhost:3000');
