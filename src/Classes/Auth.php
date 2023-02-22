@@ -12,7 +12,6 @@ class Auth {
     }
 
     public function isLoggedIn() {
-        session_start();
         if (!isset($_SESSION['loggedIn'])) {
             return false;
         }
