@@ -67,3 +67,7 @@ $router->get('/auth', function () use ($router) {
     }
     $router->sendResponse(['message' => true], 200);
 });
+
+$router->options('/', function () use ($router) {
+    $router->sendResponse([], 200);
+});
