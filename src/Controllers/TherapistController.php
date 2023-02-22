@@ -1,6 +1,5 @@
 <?php
 
-include_once('../Classes/Helpers.php');
 class TherapistController
 {
     public function getAllTherapists($filter = ['offset' => 0, 'limit' => 1000])

@@ -91,10 +91,6 @@ class Router
     public function sendResponse($data, $code = 200)
     {
         ob_clean();
-        header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: X-Requested-With');
-        header('Content-type: application/json; charset=utf-8');
         http_response_code($code);
 
         if ($data) {
