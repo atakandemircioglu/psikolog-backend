@@ -31,6 +31,7 @@ class Bootstrap
         header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
         header('Access-Control-Allow-Origin: http://localhost:3000');
         header('Content-type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Credentials: true');
     }
 
     public function initRouter()
