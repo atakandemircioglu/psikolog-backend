@@ -82,3 +82,9 @@ $router->get('/stats', function () use ($router) {
     $obj = new StatController();
     $router->sendResponse([$obj->getStats()], 200);
 });
+
+$router->post('/login', function () use ($router) {
+    $body = json_decode(file_get_contents('php://input'), true);
+    $obj = new UserController();
+    $router->sendResponse([$obj->login($body['username'], $body['password'])]);
+});
