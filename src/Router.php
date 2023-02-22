@@ -9,12 +9,11 @@ class Router
     protected $notFound;
     protected $groupPath = "";
 
-    public function __construct($currentPath, $currentMethod, $guards = [])
+    public function __construct($currentPath, $currentMethod)
     {
 
         $this->actualPath = $currentPath;
         $this->actualMethod = $currentMethod;
-        $this->guards = $guards;
 
         $this->notFound = function () {
             $this->sendResponse(["message" => "Not Found!"], 404);
@@ -80,10 +79,6 @@ class Router
             $checkMethod = ($this->actualMethod === $method) ? 1 : 0;
             $actualPath = strtok($this->actualPath, '?');
             $checkPath = preg_match("~^{$path}$~ixs", $actualPath, $params);
-            $guard = $this->runGuards();
-            if ($guard !== true) {
-                return $this->sendResponse(...$guard);
-            }
             if ($checkMethod && $checkPath) {
                 array_shift($params);
                 return call_user_func_array($callback, $params);
@@ -91,15 +86,6 @@ class Router
         }
 
         return call_user_func($this->notFound);
-    }
-
-    public function runGuards() {
-        $result = true;
-        foreach ($this->guards as $guard) {
-            var_dump($guard);
-            $result = $guard();
-        }
-        return $result;
     }
 
     public function sendResponse($data, $code = 200)
