@@ -6,6 +6,11 @@ class TherapistController
     {
         $modelFilter = $filter;
         unset($modelFilter['offset'], $modelFilter['limit'], $modelFilter['slug']);
+
+        if ($_SESSION['role'] !== "ADMIN") {
+            $modelFilter["group"] = $_SESSION["group"];
+        }
+
         $therapistModel = new TherapistModel();
         $allTherapists = $therapistModel->getByFilter($modelFilter);
         return array_slice($allTherapists, $filter['offset'], $filter['limit']);

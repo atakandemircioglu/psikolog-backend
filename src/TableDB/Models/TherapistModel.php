@@ -15,6 +15,7 @@ class TherapistModel extends Model
         'webSitesi',
         'cv',
         'fotograf',
-        'appointmentForm'
+        'appointmentForm',
+        'group'
     ];
 }

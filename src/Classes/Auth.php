@@ -6,6 +6,8 @@ class Auth {
             $_SESSION["loggedIn"] = true;
             $_SESSION["username"] = $user["username"];
             $_SESSION["id"] = $user["id"];
+            $_SESSION["role"] = $user["role"];
+            $_SESSION["group"] = $user["group"];
         }
 
         return $_SESSION;

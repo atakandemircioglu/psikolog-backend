@@ -5,7 +5,9 @@ class UserModel extends Model {
     protected $fillables = [
         'id',
         'username',
-        'password'
+        'password',
+        'role',
+        'group'
     ];
 
     public function getByUsername($username) {
