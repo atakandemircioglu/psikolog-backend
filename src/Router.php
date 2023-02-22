@@ -96,6 +96,7 @@ class Router
     public function runGuards() {
         $result = true;
         foreach ($this->guards as $guard) {
+            var_dump($guard);
             $result = $guard();
         }
         return $result;
