@@ -3,6 +3,7 @@
 class UserController {
     public function login($username, $password) {
         $user = (new UserModel())->getByUsername($username);
+        var_dump($user);
         return $user;
 
         if ($user->password !== $password) {
