@@ -2,21 +2,21 @@
 
 $router->get('/therapists', function () use ($router) {
     if (!(new Auth())->isLoggedIn()) {
-        $router->sendResponse(['message' => 'Authentication Failed'], 401);
+        $router->sendResponse(['message' => 'Unauthorized'], 401);
     }
     $router->sendResponse([(new TherapistController())->getAllTherapists($_GET)], 200);
 });
 
 $router->get('/clients', function () use ($router) {
     if (!(new Auth())->isLoggedIn()) {
-        $router->sendResponse(['message' => 'Authentication Failed'], 401);
+        $router->sendResponse(['message' => 'Unauthorized'], 401);
     }
     $router->sendResponse([(new ClientController())->getAllClients($_GET)], 200);
 });
 
 $router->get('/client-options', function () use ($router) {
     if (!(new Auth())->isLoggedIn()) {
-        $router->sendResponse(['message' => 'Authentication Failed'], 401);
+        $router->sendResponse(['message' => 'Unauthorized'], 401);
     }
     $clientController = new ClientController();
     $result = $clientController->getAllClients($_GET);
@@ -32,7 +32,7 @@ $router->get('/client-options', function () use ($router) {
 
 $router->post('/therapist-register', function () use ($router) {
     if (!(new Auth())->isLoggedIn()) {
-        $router->sendResponse(['message' => 'Authentication Failed'], 401);
+        $router->sendResponse(['message' => 'Unauthorized'], 401);
     }
     try {
         $router->sendResponse([(new TherapistController())->onTherapistRegister($_REQUEST)], 200);
@@ -43,7 +43,7 @@ $router->post('/therapist-register', function () use ($router) {
 
 $router->get('/therapist-appointments', function () use ($router) {
     if (!(new Auth())->isLoggedIn()) {
-        $router->sendResponse(['message' => 'Authentication Failed'], 401);
+        $router->sendResponse(['message' => 'Unauthorized'], 401);
     }
     $router->sendResponse([(new TherapistController())->getAllAppointments()], 200);
 });
