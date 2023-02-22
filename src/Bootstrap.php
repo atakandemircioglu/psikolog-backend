@@ -26,10 +26,11 @@ class Bootstrap
 
     public function initCORS()
     {
-        header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
         header('Access-Control-Allow-Origin: *');
-        header('Content-type: application/json; charset=utf-8');
+        header("Access-Control-Allow-Credentials: true");
+        header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+        header('Access-Control-Max-Age: 1000');
+        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
     }
 
     public function initRouter()
