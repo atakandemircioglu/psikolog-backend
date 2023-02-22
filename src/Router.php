@@ -14,7 +14,6 @@ class Router
 
         $this->actualPath = $currentPath;
         $this->actualMethod = $currentMethod;
-
         $this->notFound = function () {
             $this->sendResponse(["message" => "Not Found!"], 404);
         };
@@ -78,6 +77,11 @@ class Router
             list($method, $path, $callback) = $route;
             $checkMethod = ($this->actualMethod === $method) ? 1 : 0;
             $actualPath = strtok($this->actualPath, '?');
+
+            if ($actualPath && $actualPath[0] !== '/') {
+                $actualPath = '/' . $actualPath;
+            }
+
             $checkPath = preg_match("~^{$path}$~ixs", $actualPath, $params);
             if ($checkMethod && $checkPath) {
                 array_shift($params);
