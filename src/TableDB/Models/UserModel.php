@@ -1,7 +1,7 @@
 <?php
 
 class UserModel extends Model {
-    protected static $tableName = "Users";
+    protected static $tableName = "230514587437056";
     protected $fillables = [
         'id',
         'username',
