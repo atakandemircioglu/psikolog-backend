@@ -9,12 +9,4 @@ class UserController {
 
         return (new Auth())->authenticate($user);
     }
-
-    public function auth() {
-        if (!isset($_SESSION['loggedIn'])) {
-            return false;
-        }
-
-        return $_SESSION;
-    }
 }

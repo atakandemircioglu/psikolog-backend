@@ -8,4 +8,12 @@ class Auth {
         $_SESSION["id"] = $user["id"];
         return $_SESSION;
     }
+
+    public function isLoggedIn() {
+        if (!isset($_SESSION['loggedIn'])) {
+            return false;
+        }
+
+        return true;
+    }
 }
