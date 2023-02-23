@@ -22,9 +22,6 @@ $router->get('/clients', function () use ($router) {
 });
 
 $router->get('/client-options', function () use ($router) {
-    if (!(new Auth())->isLoggedIn()) {
-        $router->sendResponse(['message' => 'Unauthorized'], 401);
-    }
     $clientController = new ClientController();
     $result = $clientController->getAllClients($_GET);
     $response = [];
