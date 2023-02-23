@@ -7,6 +7,13 @@ $router->get('/therapists', function () use ($router) {
     $router->sendResponse([(new TherapistController())->getAllTherapists($_GET)], 200);
 });
 
+$router->get('/therapist/([\d]+)', function ($id) use ($router) {
+    if (!(new Auth())->isLoggedIn()) {
+        $router->sendResponse(['message' => 'Unauthorized'], 401);
+    }
+    $router->sendResponse([(new TherapistController())->getTherapistById($id)], 200);
+});
+
 $router->get('/clients', function () use ($router) {
     if (!(new Auth())->isLoggedIn()) {
         $router->sendResponse(['message' => 'Unauthorized'], 401);

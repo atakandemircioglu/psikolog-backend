@@ -16,6 +16,15 @@ class TherapistController
         return array_slice($allTherapists, $filter['offset'], $filter['limit']);
     }
 
+    public function getTherapistById($id) {
+        $therapist = $therapistModel = (new TherapistModel())->findByPrimaryKeyOrFail($id);
+        if ($_SESSION['role'] !== 'ADMIN' && $_SESSION["group"] !== $therapist->group) {
+            return "Unauthorized";
+        }
+
+        return $therapist->toArray();
+    }
+
     public function onTherapistRegister($request)
     {
         $therapistID = $request['submissionID'];
