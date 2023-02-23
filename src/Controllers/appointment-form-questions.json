@@ -57,30 +57,6 @@
       "useLunchBreak": "Yes",
       "useReminderEmails": "No"
     },
-    "4": {
-      "compoundHint": "",
-      "description": "",
-      "hidden": "Yes",
-      "labelAlign": "Auto",
-      "middle": "No",
-      "name": "isim",
-      "order": "2",
-      "prefix": "No",
-      "prefixChoices": "",
-      "qid": "4",
-      "readonly": "No",
-      "required": "No",
-      "sublabels": {
-        "prefix": "Ön Ad",
-        "first": "Ad",
-        "middle": "İkinci Ad",
-        "last": "Soyad",
-        "suffix": "Son Ad"
-      },
-      "suffix": "No",
-      "text": "İsim",
-      "type": "control_fullname"
-    },
     "8": {
       "allowCustomDomains": "No",
       "allowedDomains": "",
@@ -128,7 +104,7 @@
         "name": "typeA",
         "order": "2",
         "paramChunks": "",
-        "qid": "3",
+        "qid": "24",
         "required": "No",
         "Select": "",
         "selectedField": "c621ab5dfafa728fe06837cd",
