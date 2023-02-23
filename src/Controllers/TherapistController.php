@@ -17,7 +17,7 @@ class TherapistController
     }
 
     public function getTherapistById($id) {
-        $therapist = $therapistModel = (new TherapistModel())->findByPrimaryKeyOrFail($id);
+        $therapist = (new TherapistModel())->findByPrimaryKeyOrFail($id);
         if ($_SESSION['role'] !== 'ADMIN' && $_SESSION["group"] !== $therapist->group) {
             return "Unauthorized";
         }
@@ -127,7 +127,11 @@ class TherapistController
             return $this->getTherapistCalendar($model['id']);
         }, $therapists);
         $modelFilter = $filter;
-        return $mapped;
+        unset($modelFilter['slug'], $modelFilter['offset'], $modelFilter['limit']);
+        $mapped = $this->filterAppointments($mapped, $modelFilter);
+        $offset = $filter['offset'] ?? 0;
+        $limit = $filter['limit'] ?? 1000;
+        return array_slice($mapped, $offset, $limit);
     }
 
     public function getTherapistCalendar($therapistID) {
@@ -148,15 +152,57 @@ class TherapistController
             $client = $clientModel->findByEposta($model['hastaEposta'])[0];
             return [
                 'client_name' => $client['isim']['first'] . ' ' . $client['isim']['last'],
-                'appointment' => [
-                    $formattedDate
-                ]
+                'appointment' => $formattedDate
             ];
         }, $return);
+
         return [
             'therapist_name' => $therapist->isim['first'] . ' ' . $therapist->isim['last'],
             'appointments' => $appointments
         ];
+    }
+
+    public function filterAppointments($appointments, $filter = []) {
+        $filtered = $appointments;
+        $filtered = array_filter($appointments, function ($appointment) use ($filter) {
+            $condition = true;
+            foreach ($filter as $key => $value) {
+                if (!in_array($key, ['date', 'startDate', 'endDate', 'client_name'])) {
+                    $condition = $condition && $appointment[$key] === $value;
+                }
+            }
+            return $condition;
+        });
+
+        if (empty($filtered)) {
+            return [];
+        }
+
+        array_walk($filtered, function (&$appointment) use ($filter) {
+            $therapistAppointments = $appointment['appointments'];
+            if (!empty($therapistAppointments)) {
+                $filteredAppointments = array_filter($therapistAppointments, function ($therapistAppointment) use ($filter) {
+                    $condition = true;
+                    foreach ($filter as $key => $value) {
+                        if (in_array($key, ['startDate', 'endDate', 'client_name'])) {
+                            if ($key === 'startDate') {
+                                $date = DateTime::createFromFormat('F m, Y H:i', $therapistAppointment['appointment'])->getTimestamp();
+                                $condition = $condition && $date >= strtotime($value);
+                            } elseif ($key === 'endDate') {
+                                $date = DateTime::createFromFormat('F m, Y H:i', $therapistAppointment['appointment'])->getTimestamp();
+                                $condition = $condition && $date <= strtotime($value);
+                            } else {
+                                $condition = $condition && $therapistAppointment === $value;
+                            }
+                        }
+                    }
+                    return $condition;
+                });
+            }
+            $appointment["appointments"] = $filteredAppointments;
+        });
+
+        return $filtered;
     }
 
     public function getAppointmentFormPropertiesDefault()

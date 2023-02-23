@@ -52,7 +52,7 @@ $router->get('/therapist-appointments', function () use ($router) {
     if (!(new Auth())->isLoggedIn()) {
         $router->sendResponse(['message' => 'Unauthorized'], 401);
     }
-    $router->sendResponse([(new TherapistController())->getAllAppointments()], 200);
+    $router->sendResponse([(new TherapistController())->getAllAppointments($_REQUEST)], 200);
 });
 
 $router->get('/stats', function () use ($router) {
