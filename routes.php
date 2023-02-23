@@ -38,9 +38,6 @@ $router->get('/client-options', function () use ($router) {
 });
 
 $router->post('/therapist-register', function () use ($router) {
-    if (!(new Auth())->isLoggedIn()) {
-        $router->sendResponse(['message' => 'Unauthorized'], 401);
-    }
     try {
         $router->sendResponse([(new TherapistController())->onTherapistRegister($_REQUEST)], 200);
     } catch (Exception $e) {
