@@ -19,7 +19,7 @@
       "clearText": "Formu Temizle",
       "encryptIcon": "No",
       "name": "submit2",
-      "order": "9",
+      "order": "999",
       "print": "No",
       "printText": "Formu Yazdır",
       "qid": "2",
