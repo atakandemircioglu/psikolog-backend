@@ -6,9 +6,20 @@ class ClientController
     {
         $modelFilter = $filter;
         unset($modelFilter['offset'], $modelFilter['limit'], $modelFilter['slug']);
+
+        /* if ($_SESSION['role'] !== "ADMIN") {
+            $modelFilter["atananPsikologGroup"] = $_SESSION["group"];
+        } */
+
         $cModel = new ClientModel();
         $response = $cModel->getByFilter($modelFilter);
-        $response = $this->manageRelations($response);
+
+        if ($_SESSION['role'] !== 'ADMIN') {
+            $response = array_filter($this->manageRelations($response), function ($client) {
+                return $client["atananPsikologGroup"] === $_SESSION["group"];
+            });
+        }
+
         return array_slice($response, $filter['offset'], $filter['limit']);
     }
 
@@ -19,6 +30,7 @@ class ClientController
             $therapist = (new TherapistModel())->findByPrimaryKey($therapistID); // Cache is awesome in this case!
             if ($therapist) {
                 $eachClient['atananPsikolog'] = $therapist->isim['first'] . ' ' . $therapist->isim['last'];
+                $eachClient['atananPsikologGroup'] = $therapist->group;
                 $eachClient['emailPsik'] = $therapist->eposta;
             }
             $eachClient['durum'] = $this->matchStatusId($status);
