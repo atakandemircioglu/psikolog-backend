@@ -22,8 +22,6 @@ class Auth {
     }
 
     public function logout() {
-        session_unset();
-        header("Location: ./index.php");
-        return session_destroy();
+        return session_unset();
     }
 }
