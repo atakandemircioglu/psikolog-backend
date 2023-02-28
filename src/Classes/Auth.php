@@ -22,6 +22,7 @@ class Auth {
     }
 
     public function logout() {
+        session_unset();
         return session_destroy();
     }
 }
