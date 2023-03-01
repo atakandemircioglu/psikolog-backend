@@ -10,7 +10,7 @@
  */
 
 class JotForm {
-    public $baseURL = 'https://api.jotform.com';
+    public $baseURL = 'https://afetpsikososyal.jotform.com/API';
     private $apiKey;
     private $debugMode;
     private $outputType;
@@ -20,11 +20,6 @@ class JotForm {
         $this->apiKey = $apiKey;
         $this->debugMode = $debugMode;
         $this->outputType = strtolower($outputType);
-        $user = $this->getUser();
-        # set base url for EU users
-        if (isset($user['euOnly'])) {
-            $this->baseURL = 'https://eu-api.jotform.com';
-        }
     }
 
     public function __get($property) {
