@@ -38,6 +38,7 @@ $router->post('/therapist-register', function () use ($router) {
     try {
         $router->sendResponse([(new TherapistController())->onTherapistRegister($_REQUEST)], 200);
     } catch (Exception $e) {
+        file_put_contents('error_log.json', $e->getMessage());
         $router->sendResponse([$e->getMessage()], 200);
     }
 });
