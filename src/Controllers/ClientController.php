@@ -13,9 +13,9 @@ class ClientController
 
         $cModel = new ClientModel();
         $response = $cModel->getByFilter($modelFilter);
-
+        $response = $this->manageRelations($response);
         if ($_SESSION['role'] !== 'ADMIN') {
-            $response = array_filter($this->manageRelations($response), function ($client) {
+            $response = array_filter($response, function ($client) {
                 return $client["atananPsikologGroup"] === $_SESSION["group"];
             });
         }
