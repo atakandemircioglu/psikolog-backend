@@ -17,7 +17,8 @@ class TherapistController
         return array_slice($allTherapists, $filter['offset'], $filter['limit']);
     }
 
-    public function getTherapistById($id) {
+    public function getTherapistById($id)
+    {
         $therapist = (new TherapistModel())->findByPrimaryKeyOrFail($id);
         if ($_SESSION['role'] !== 'ADMIN' && $_SESSION["group"] !== $therapist->group) {
             return "Unauthorized";
@@ -122,7 +123,8 @@ class TherapistController
         return [$form, $questionedForm];
     }
 
-    public function getAllAppointments($filter = ['offset' => 0, 'limit' => 1000]) {
+    public function getAllAppointments($filter = ['offset' => 0, 'limit' => 1000])
+    {
         unset($filter['dbg']);
         $therapists = (new TherapistModel())->all();
         $mapped = array_map(function ($model) {
@@ -130,7 +132,7 @@ class TherapistController
         }, $therapists);
         $modelFilter = $filter;
 
- /*        if ($_SESSION['role'] !== 'ADMIN') {
+        /*        if ($_SESSION['role'] !== 'ADMIN') {
             $modelFilter['group'] = $_SESSION['group'];
         } */
 
@@ -144,7 +146,8 @@ class TherapistController
         return array_slice($mapped, $offset, $limit);
     }
 
-    public function getTherapistCalendar($therapistID) {
+    public function getTherapistCalendar($therapistID)
+    {
         try {
             $therapist = (new TherapistModel())->findByPrimaryKey($therapistID);
         } catch (\Exception) {
@@ -158,31 +161,37 @@ class TherapistController
         if (empty($therapistAppointmentFormID)) {
             return;
         }
-        $appointmentModel = (new $customTherapistAppointmentModel());
-        $return = $appointmentModel->all();
-        $clientModel = (new ClientModel());
-        $appointments = array_map(function ($model) use ($clientModel) {
-            if ($model['randevu'] === null) {
-                return;
-            }
+
+        try {
+            $appointmentModel = (new $customTherapistAppointmentModel());
+            $return = $appointmentModel->all();
+            $clientModel = (new ClientModel());
+            $appointments = array_map(function ($model) use ($clientModel) {
+                if ($model['randevu'] === null) {
+                    return;
+                }
                 $ts =  DateTime::createFromFormat('Y-m-d H:i', $model['randevu']['date']);
                 $formattedDate = date('F m, Y H:i', $ts->getTimestamp());
-            $client = $clientModel->findByEposta($model['hastaEposta'])[0];
+                $client = $clientModel->findByEposta($model['hastaEposta'])[0];
+                return [
+                    'client_name' => $client['isim']['first'] . ' ' . $client['isim']['last'],
+                    'client_id' => $client['id'],
+                    'appointment' => $formattedDate
+                ];
+            }, $return);
             return [
-                'client_name' => $client['isim']['first'] . ' ' . $client['isim']['last'],
-                'client_id' => $client['id'],
-                'appointment' => $formattedDate
+                'therapist_name' => $therapist->isim['first'] . ' ' . $therapist->isim['last'],
+                'therapist_id' => $therapist->id,
+                'therapist_group' => $therapist->group,
+                'appointments' => $appointments
             ];
-        }, $return);
-        return [
-            'therapist_name' => $therapist->isim['first'] . ' ' . $therapist->isim['last'],
-            'therapist_id' => $therapist->id,
-            'therapist_group' => $therapist->group,
-            'appointments' => $appointments
-        ];
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
-    public function filterAppointments($appointments, $filter = []) {
+    public function filterAppointments($appointments, $filter = [])
+    {
         $filtered = $appointments;
         $filtered = array_filter($appointments, function ($appointment) use ($filter) {
             $condition = true;
